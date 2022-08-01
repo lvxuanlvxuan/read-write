@@ -10,5 +10,5 @@ public interface UserService {
 
     void insertOne(User user);
 
-    User queryOneById(Long id);
+    User queryOneById(Integer id);
 }

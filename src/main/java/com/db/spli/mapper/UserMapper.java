@@ -14,10 +14,11 @@ public interface UserMapper {
     @Dss(value = DataSourceEnum.MASTER)
     int insert(User record);
 
+    @Dss(value = DataSourceEnum.MASTER)
     int insertSelective(User record);
 
     @Dss(value = DataSourceEnum.SLAVE)
-    User selectByPrimaryKey(Long userId);
+    User selectByPrimaryKey(Integer userId);
 
     int updateByPrimaryKeySelective(User record);
 

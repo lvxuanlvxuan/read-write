@@ -19,11 +19,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void insertOne(User user) {
-        userMapper.insert(user);
+        userMapper.insertSelective(user);
     }
 
     @Override
-    public User queryOneById(Long id) {
+    public User queryOneById(Integer id) {
 
         return userMapper.selectByPrimaryKey(id);
     }

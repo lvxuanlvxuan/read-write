@@ -906,7 +906,7 @@ SELECT|sys.sys_config
     </user>
     <table id="283" parent="2" name="test"/>
     <table id="284" parent="2" name="user">
-      <Collation>utf8_general_ci</Collation>
+      <Comment>user测试</Comment>
     </table>
     <column id="285" parent="283" name="id">
       <Position>1</Position>
@@ -927,11 +927,12 @@ SELECT|sys.sys_config
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="288" parent="284" name="user_id">
+    <column id="288" parent="284" name="id">
       <Position>1</Position>
-      <Comment>用户id</Comment>
-      <DataType>bigint|0s</DataType>
+      <Comment>id</Comment>
+      <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
+      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="289" parent="284" name="user_name">
       <Position>2</Position>
@@ -939,42 +940,29 @@ SELECT|sys.sys_config
       <DataType>varchar(255)|0s</DataType>
       <DefaultExpression>&apos;&apos;</DefaultExpression>
     </column>
-    <column id="290" parent="284" name="user_phone">
+    <column id="290" parent="284" name="address">
       <Position>3</Position>
-      <Comment>用户手机</Comment>
-      <DataType>varchar(50)|0s</DataType>
-      <DefaultExpression>&apos;&apos;</DefaultExpression>
-    </column>
-    <column id="291" parent="284" name="address">
-      <Position>4</Position>
       <Comment>住址</Comment>
       <DataType>varchar(255)|0s</DataType>
       <DefaultExpression>&apos;&apos;</DefaultExpression>
     </column>
-    <column id="292" parent="284" name="weight">
-      <Position>5</Position>
-      <Comment>权重，大者优先</Comment>
-      <DataType>int|0s</DataType>
-      <NotNull>1</NotNull>
-      <DefaultExpression>1</DefaultExpression>
-    </column>
-    <column id="293" parent="284" name="created_at">
-      <Position>6</Position>
+    <column id="291" parent="284" name="created_time">
+      <Position>4</Position>
       <Comment>创建时间</Comment>
       <DataType>datetime|0s</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
     </column>
-    <column id="294" parent="284" name="updated_at">
-      <Position>7</Position>
+    <column id="292" parent="284" name="updated_time">
+      <Position>5</Position>
       <Comment>更新时间</Comment>
       <DataType>datetime|0s</DataType>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <OnUpdate>CURRENT_TIMESTAMP</OnUpdate>
     </column>
-    <key id="295" parent="284" name="PRIMARY">
+    <key id="293" parent="284" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
-      <ColNames>user_id</ColNames>
+      <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
   </database-model>
