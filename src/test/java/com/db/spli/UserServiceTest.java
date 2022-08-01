@@ -17,8 +17,12 @@ public class UserServiceTest {
 
     @Test
     public void testQueryOne() {
-        User user = userService.queryOneById(1);
-        System.out.println(user.toString());
+        User user1 = userService.queryOneById(1);
+        System.out.println(user1.toString());
+        User user = new User();
+        user.setUserName("xiaolv");
+        user.setAddress("shanghai");
+        userService.insertOne(user);
     }
 
     @Test

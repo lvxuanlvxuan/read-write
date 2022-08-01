@@ -6,6 +6,9 @@ package com.db.spli.config;
  */
 public class DataSourceContextHolder {
     private static final ThreadLocal<String> DATA_SOURCE = new ThreadLocal<String>();
+    static {
+        DATA_SOURCE.set("hello");
+    }
 
     public static void set(String dataSource) {
         DATA_SOURCE.set(dataSource);
