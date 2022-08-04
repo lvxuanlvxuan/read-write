@@ -8,7 +8,7 @@ import com.db.spli.domain.User;
  */
 public interface UserService {
 
-    void insertOne(User user);
+    User insertOne(User user);
 
     User queryOneById(Integer id);
 }

@@ -17,7 +17,7 @@ public interface UserMapper {
     @Dss(value = DataSourceEnum.MASTER)
     int insertSelective(User record);
 
-//    @Dss(value = DataSourceEnum.SLAVE)
+    @Dss(value = DataSourceEnum.SLAVE)
     User selectByPrimaryKey(Integer userId);
 
     int updateByPrimaryKeySelective(User record);

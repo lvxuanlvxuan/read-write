@@ -13,5 +13,5 @@ spring:
       password: 123456
     slave:
       url: jdbc:mysql://139.196.112.185:3308/TEST-01?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&failOverReadOnly=false&useSSL=false
-      username: roott
+      username: root
       password: 123456

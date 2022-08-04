@@ -3,7 +3,8 @@ package com.db.spli.service.impl;
 import com.db.spli.domain.User;
 import com.db.spli.mapper.UserMapper;
 import com.db.spli.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -18,11 +19,14 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
 
     @Override
-    public void insertOne(User user) {
+    @CachePut(value = "user", key = "#user.id")
+    public User insertOne(User user) {
         userMapper.insertSelective(user);
+        return user;
     }
 
     @Override
+    @Cacheable(value = "user", key = "#id")
     public User queryOneById(Integer id) {
 
         return userMapper.selectByPrimaryKey(id);
