@@ -22,7 +22,7 @@ public class UserController {
     private UserService userService;
 
     @Autowired
-    private CacheManager myCacheManager;
+    private CacheManager myCacheManagerV2;
 
     @PostMapping("/insertOne")
     public ResponseEntity insertOne(@RequestBody User user) {
@@ -38,9 +38,9 @@ public class UserController {
 
     @GetMapping("/getCache")
     public ResponseEntity getCache() {
-        Collection<String> cacheNames = myCacheManager.getCacheNames();
+        Collection<String> cacheNames = myCacheManagerV2.getCacheNames();
         for (String cacheName : cacheNames) {
-            Cache cache = myCacheManager.getCache(cacheName);
+            Cache cache = myCacheManagerV2.getCache(cacheName);
             Object nativeCache = cache.getNativeCache();
         }
         return ResponseEntity.ok().build();
