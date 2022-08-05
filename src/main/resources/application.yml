@@ -11,7 +11,11 @@ spring:
       url: jdbc:mysql://139.196.112.185:3307/TEST-01?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&failOverReadOnly=false&useSSL=false
       username: root
       password: 123456
-    slave:
+    slave1:
+      url: jdbc:mysql://139.196.112.185:3308/TEST-01?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&failOverReadOnly=false&useSSL=false
+      username: root
+      password: 123456
+    slave2:
       url: jdbc:mysql://139.196.112.185:3308/TEST-01?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&failOverReadOnly=false&useSSL=false
       username: root
       password: 123456

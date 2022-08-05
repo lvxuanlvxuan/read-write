@@ -28,8 +28,7 @@ import lombok.Getter;
 public enum DataSourceEnum {
 
     MASTER(1, "master"),
-    SLAVE(2, "slave"),
-    ;
+    SLAVE(2, "slave");
 
     private Integer dataSourceCode;
     private String dataSourceName;
