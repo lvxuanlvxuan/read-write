@@ -4,9 +4,12 @@ import com.db.spli.constant.CacheConstant;
 import com.db.spli.domain.User;
 import com.db.spli.mapper.UserMapper;
 import com.db.spli.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
@@ -19,9 +22,11 @@ import javax.annotation.Resource;
 public class UserServiceImpl implements UserService {
     @Resource
     private UserMapper userMapper;
+    @Autowired
+    private CacheManager myCacheManagerV2;
 
     @Override
-    @CachePut(cacheNames = CacheConstant.TEN_MINUTES, key = "#user.id")
+//    @CachePut(cacheNames = CacheConstant.TEN_MINUTES, key = "#user.id")
     public User insertOne(User user) {
         userMapper.insertSelective(user);
         return user;
@@ -34,21 +39,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(rollbackFor = Exception.class, propagation = Propagation.SUPPORTS)
     public void updateById(String address, Integer id) {
         userMapper.updateAddressById(address, id);
         System.out.println(1 / 0);
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(rollbackFor = Exception.class, propagation = Propagation.SUPPORTS)
     public void testTransaction(User user) {
         userMapper.insertSelective(user);
-        try {
-            updateById("taiwanm", 10);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+        System.out.println(1 / 0);
+//        updateById("taiwanm", 10);
     }
 }
