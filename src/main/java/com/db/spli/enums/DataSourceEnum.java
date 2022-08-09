@@ -25,11 +25,12 @@ import lombok.Getter;
  */
 @Getter
 @AllArgsConstructor
-public enum DataSourceEnum {
+public enum DataSourceEnum implements BaseEnum{
 
     MASTER(1, "master"),
-    SLAVE(2, "slave");
+    SLAVE(2,"slave"),
+    ;
 
-    private Integer dataSourceCode;
-    private String dataSourceName;
+    private Integer code;
+    private String message;
 }

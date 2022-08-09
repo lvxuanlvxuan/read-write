@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Cacheable(cacheNames = CacheConstant.ONE_HOUR, key = "#id")
+//    @Cacheable(cacheNames = CacheConstant.ONE_HOUR, key = "#id")
     public User queryOneById(Integer id) {
         return userMapper.selectByPrimaryKey(id);
     }

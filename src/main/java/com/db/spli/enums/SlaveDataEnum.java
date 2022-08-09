@@ -10,11 +10,21 @@ import org.springframework.web.bind.annotation.GetMapping;
  */
 @Getter
 @AllArgsConstructor
-public enum SlaveDataEnum {
+public enum SlaveDataEnum implements BaseEnum {
 
     SLAVE_ONE(1, "slaveOne"),
     SLAVE_TWO(2, "slaveTwo");
 
     private Integer code;
     private String message;
+
+//    @Override
+//    public Integer getCode() {
+//        return this.code;
+//    }
+//
+//    @Override
+//    public String getMessage() {
+//        return this.message;
+//    }
 }

@@ -55,23 +55,22 @@ public class DataSourceConfig {
         return DruidDataSourceBuilder.create().build();
     }
 
-//    @Bean
-//    @ConfigurationProperties(prefix = "spring.datasource.slave2")
-//    public DataSource slaveDbTwo() {
-//        return DruidDataSourceBuilder.create().build();
-//    }
+    @Bean
+    @ConfigurationProperties(prefix = "spring.datasource.slave2")
+    public DataSource slaveDbTwo() {
+        return DruidDataSourceBuilder.create().build();
+    }
 
     @Bean
     public DynamicDataSource dynamicDb(@Qualifier("masterDb") DataSource masterDataSource,
-                                       @Autowired(required = false) @Qualifier("slaveDbOne") DataSource slaveDataSourceOne
-//            ,
-//                                       @Autowired(required = false) @Qualifier("slaveDbTwo") DataSource slaveDataSourceTwo
+                                       @Autowired(required = false) @Qualifier("slaveDbOne") DataSource slaveDataSourceOne,
+                                       @Autowired(required = false) @Qualifier("slaveDbTwo") DataSource slaveDataSourceTwo
     ) {
         DynamicDataSource dynamicDataSource = new DynamicDataSource();
         Map<Object, Object> targetDataSourceMap = new HashMap<Object, Object>();
-        targetDataSourceMap.put(DataSourceEnum.MASTER.getDataSourceName(), masterDataSource);
-//        targetDataSourceMap.put(SlaveDataEnum.SLAVE_ONE.getMessage())
-        targetDataSourceMap.put(DataSourceEnum.SLAVE.getDataSourceName(), slaveDataSourceOne);
+        targetDataSourceMap.put(DataSourceEnum.MASTER.getMessage(), masterDataSource);
+        targetDataSourceMap.put(SlaveDataEnum.SLAVE_ONE.getMessage(), slaveDataSourceOne);
+        targetDataSourceMap.put(SlaveDataEnum.SLAVE_TWO.getMessage(), slaveDataSourceTwo);
         dynamicDataSource.setTargetDataSources(targetDataSourceMap);
         dynamicDataSource.setDefaultTargetDataSource(masterDataSource);
         return dynamicDataSource;

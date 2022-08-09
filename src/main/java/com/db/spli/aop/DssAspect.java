@@ -1,6 +1,10 @@
 package com.db.spli.aop;
 
+import cn.hutool.core.util.RandomUtil;
 import com.db.spli.config.DataSourceContextHolder;
+import com.db.spli.enums.DataSourceEnum;
+import com.db.spli.enums.SlaveDataEnum;
+import com.db.spli.utils.EnumUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -27,8 +31,14 @@ public class DssAspect {
             Method method = this.getMethod(proceedingJoinPoint);
             Dss annotation = method.getAnnotation(Dss.class);
             clear = annotation.clear();
-            DataSourceContextHolder.set(annotation.value().getDataSourceName());
-            log.info("+++++++++++++++当前使用数据源：{}++++++++++++++", annotation.value().getDataSourceName());
+            String dataSoure = DataSourceEnum.MASTER.getMessage();
+            if (DataSourceEnum.SLAVE.getMessage().equals(annotation.value().getMessage())) {
+                int length = SlaveDataEnum.values().length;
+                int dataCode = RandomUtil.randomInt(length) + 1;
+                dataSoure = EnumUtils.getMessageByCode(SlaveDataEnum.values(), dataCode);
+            }
+            DataSourceContextHolder.set(dataSoure);
+            log.info("+++++++++++++++当前使用数据源：{}++++++++++++++", dataSoure);
             return proceedingJoinPoint.proceed();
         } finally {
             if (clear) {
