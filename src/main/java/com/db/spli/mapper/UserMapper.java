@@ -3,6 +3,7 @@ package com.db.spli.mapper;
 import com.db.spli.aop.Dss;
 import com.db.spli.domain.User;
 import com.db.spli.enums.DataSourceEnum;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * @author lvxuan
@@ -23,4 +24,8 @@ public interface UserMapper {
     int updateByPrimaryKeySelective(User record);
 
     int updateByPrimaryKey(User record);
+
+
+    void updateAddressById(@Param("address") String address,
+                           @Param("id") Integer id);
 }

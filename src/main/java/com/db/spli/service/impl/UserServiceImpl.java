@@ -7,6 +7,7 @@ import com.db.spli.service.UserService;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 
@@ -30,5 +31,24 @@ public class UserServiceImpl implements UserService {
     @Cacheable(cacheNames = CacheConstant.ONE_HOUR, key = "#id")
     public User queryOneById(Integer id) {
         return userMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void updateById(String address, Integer id) {
+        userMapper.updateAddressById(address, id);
+        System.out.println(1 / 0);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void testTransaction(User user) {
+        userMapper.insertSelective(user);
+        try {
+            updateById("taiwanm", 10);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }

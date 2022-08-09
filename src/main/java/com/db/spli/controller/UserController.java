@@ -45,4 +45,10 @@ public class UserController {
         }
         return ResponseEntity.ok().build();
     }
+
+    @PostMapping("/testTransaction")
+    public ResponseEntity testTransaction(@RequestBody User user) {
+        userService.testTransaction(user);
+        return ResponseEntity.ok().build();
+    }
 }
