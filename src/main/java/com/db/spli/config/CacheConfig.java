@@ -4,7 +4,6 @@ import com.db.spli.constant.CacheConstant;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.caffeine.CaffeineCache;
-import org.springframework.cache.caffeine.CaffeineCacheManager;
 import org.springframework.cache.support.SimpleCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -43,8 +42,8 @@ public class CacheConfig {
                         .build()));
         caches.add(new CaffeineCache(CacheConstant.ONE_HOUR,
                 Caffeine.newBuilder().expireAfterWrite(1, TimeUnit.HOURS)
-                        .initialCapacity(50)
-                        .maximumSize(300)
+                        .initialCapacity(1)
+                        .maximumSize(2)
                         .build()));
         caches.add(new CaffeineCache(CacheConstant.THREE_HOUR,
                 Caffeine.newBuilder().expireAfterWrite(3, TimeUnit.HOURS)

@@ -5,6 +5,8 @@ import com.db.spli.domain.User;
 import com.db.spli.enums.DataSourceEnum;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * @author lvxuan
  * @description user mapper
@@ -20,6 +22,9 @@ public interface UserMapper {
 
     @Dss(value = DataSourceEnum.SLAVE)
     User selectByPrimaryKey(Integer userId);
+
+    @Dss(value = DataSourceEnum.SLAVE)
+    List<User> queryByIdList(@Param("list") List<Integer> list);
 
     int updateByPrimaryKeySelective(User record);
 

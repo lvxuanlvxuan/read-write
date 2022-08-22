@@ -3,12 +3,11 @@ package com.db.spli.controller;
 import com.db.spli.domain.User;
 import com.db.spli.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.Cache;
-import org.springframework.cache.CacheManager;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collection;
+import java.util.List;
+
 
 /**
  * @author lvxuan
@@ -20,9 +19,6 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private CacheManager myCacheManagerV2;
 
     @PostMapping("/insertOne")
     public ResponseEntity insertOne(@RequestBody User user) {
@@ -36,13 +32,15 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
 
+    @GetMapping("/putCache")
+    public ResponseEntity putCache(@RequestParam("idList") List<Integer> idList) {
+        userService.queryByIdList(idList);
+        return ResponseEntity.ok().build();
+    }
+
     @GetMapping("/getCache")
     public ResponseEntity getCache() {
-        Collection<String> cacheNames = myCacheManagerV2.getCacheNames();
-        for (String cacheName : cacheNames) {
-            Cache cache = myCacheManagerV2.getCache(cacheName);
-            Object nativeCache = cache.getNativeCache();
-        }
+        userService.getCache();
         return ResponseEntity.ok().build();
     }
 
