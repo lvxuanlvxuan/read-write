@@ -1,6 +1,8 @@
 package com.db.spli.config;
 
 import com.db.spli.constant.CacheConstant;
+import com.db.spli.domain.User;
+import com.github.benmanes.caffeine.cache.CacheLoader;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.caffeine.CaffeineCache;
@@ -36,21 +38,38 @@ public class CacheConfig {
         SimpleCacheManager cacheManager = new SimpleCacheManager();
         List<CaffeineCache> caches = new ArrayList<>();
         caches.add(new CaffeineCache(CacheConstant.TEN_MINUTES,
-                Caffeine.newBuilder().expireAfterWrite(600, TimeUnit.SECONDS)
+                Caffeine.newBuilder().expireAfterAccess(600, TimeUnit.SECONDS)
                         .initialCapacity(50)
                         .maximumSize(300)
                         .build()));
         caches.add(new CaffeineCache(CacheConstant.ONE_HOUR,
                 Caffeine.newBuilder().expireAfterWrite(1, TimeUnit.HOURS)
                         .initialCapacity(1)
-                        .maximumSize(2)
+                        .maximumSize(20)
                         .build()));
         caches.add(new CaffeineCache(CacheConstant.THREE_HOUR,
                 Caffeine.newBuilder().expireAfterWrite(3, TimeUnit.HOURS)
                         .initialCapacity(50)
                         .maximumSize(300)
-                        .build()));
+                        .build(new CacheLoader<Object, Object>() {
+                            @Override
+                            public Object load(Object o) throws Exception {
+                                return initUser();
+                            }
+                        })));
         cacheManager.setCaches(caches);
         return cacheManager;
+    }
+
+    /**
+     * 可以改为数据库操作
+     *
+     * @return
+     */
+    private User initUser() {
+        User user = new User();
+        user.setId(1);
+        user.setUserName("xiaolv");
+        return user;
     }
 }

@@ -21,6 +21,14 @@ public interface UserService {
 
     void testTransaction(User user);
 
-    void getCache();
+    void getCacheAll();
+
+    User getCache(Integer key);
+
+    void putCache();
+
+    void evictCache(Integer key);
+
+    void invalidCache();
 
 }

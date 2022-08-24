@@ -32,21 +32,45 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
 
-    @GetMapping("/putCache")
-    public ResponseEntity putCache(@RequestParam("idList") List<Integer> idList) {
+    @GetMapping("/queryByIdList")
+    public ResponseEntity queryByIdList(@RequestParam("idList") List<Integer> idList) {
         userService.queryByIdList(idList);
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/getCache")
-    public ResponseEntity getCache() {
-        userService.getCache();
+    @GetMapping("/getCacheAll")
+    public ResponseEntity getCacheAll() {
+        userService.getCacheAll();
         return ResponseEntity.ok().build();
     }
 
     @PostMapping("/testTransaction")
     public ResponseEntity testTransaction(@RequestBody User user) {
         userService.testTransaction(user);
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/getCache")
+    public ResponseEntity getCache(@RequestParam("key") Integer key) {
+        User cache = userService.getCache(key);
+        return ResponseEntity.ok(cache);
+    }
+
+    @GetMapping("/putCache")
+    public ResponseEntity putCache() {
+        userService.putCache();
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/evictCache")
+    public ResponseEntity evictCache(@RequestParam("key") Integer key) {
+        userService.evictCache(key);
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/invalidCache")
+    public ResponseEntity invalidCache() {
+        userService.invalidCache();
         return ResponseEntity.ok().build();
     }
 }

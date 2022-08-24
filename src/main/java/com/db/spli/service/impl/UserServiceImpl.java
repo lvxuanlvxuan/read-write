@@ -17,6 +17,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.util.Collection;
 import java.util.List;
+import java.util.function.Function;
 
 /**
  * @author lvxuan
@@ -74,7 +75,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void getCache() {
+    public void getCacheAll() {
         Collection<String> cacheNames = myCacheManagerV2.getCacheNames();
         for (String cacheName : cacheNames) {
             CaffeineCache cache = (CaffeineCache) myCacheManagerV2.getCache(cacheName);
@@ -82,5 +83,40 @@ public class UserServiceImpl implements UserService {
             int size = nativeCache1.asMap().size();
             Object nativeCache = cache.getNativeCache();
         }
+    }
+
+    @Override
+    public User getCache(Integer key) {
+        User o = (User) ONE_HOUR.getNativeCache().get(key, new Function<Object, Object>() {
+            @Override
+            public Object apply(Object o) {
+                User user = new User();
+                user.setId(1);
+                user.setUserName("xiaolv");
+                return user;
+            }
+        });
+        return o;
+    }
+
+    @Override
+    public void putCache() {
+        for (int i = 0; i < 30; i++) {
+            User user1=new User();
+            user1.setId(i);
+            user1.setUserName("xiaofeng"+1);
+            ONE_HOUR.put(i, user1);
+        }
+    }
+
+    @Override
+    public void evictCache(Integer key) {
+        ONE_HOUR.evict(key);
+//        ONE_HOUR.getNativeCache().invalidate(key);
+    }
+
+    @Override
+    public void invalidCache() {
+        ONE_HOUR.invalidate();
     }
 }
