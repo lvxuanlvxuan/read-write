@@ -4,6 +4,8 @@ import com.db.spli.constant.CacheConstant;
 import com.db.spli.domain.User;
 import com.github.benmanes.caffeine.cache.CacheLoader;
 import com.github.benmanes.caffeine.cache.Caffeine;
+import com.github.benmanes.caffeine.cache.Expiry;
+import com.github.benmanes.caffeine.cache.Weigher;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.caffeine.CaffeineCache;
 import org.springframework.cache.support.SimpleCacheManager;
@@ -37,13 +39,31 @@ public class CacheConfig {
     public CacheManager myCacheManagerV2() {
         SimpleCacheManager cacheManager = new SimpleCacheManager();
         List<CaffeineCache> caches = new ArrayList<>();
-        caches.add(new CaffeineCache(CacheConstant.TEN_MINUTES,
-                Caffeine.newBuilder().expireAfterAccess(600, TimeUnit.SECONDS)
+        caches.add(new CaffeineCache(CacheConstant.MAX_SIZE,
+                Caffeine.newBuilder()
                         .initialCapacity(50)
                         .maximumSize(300)
                         .build()));
         caches.add(new CaffeineCache(CacheConstant.ONE_HOUR,
-                Caffeine.newBuilder().expireAfterWrite(1, TimeUnit.HOURS)
+                Caffeine.newBuilder()
+                        .expireAfterWrite(1, TimeUnit.HOURS)
+//                        .expireAfterAccess(1,TimeUnit.HOURS)
+//                        .expireAfter(new Expiry<Object, Object>() {
+//                            @Override
+//                            public long expireAfterCreate(Object key, Object value, long currentTime) {
+//                                return TimeUnit.HOURS.toNanos(1);
+//                            }
+//
+//                            @Override
+//                            public long expireAfterUpdate(Object o, Object o2, long currentTime, long currentDuration) {
+//                                return TimeUnit.HOURS.toNanos(1);
+//                            }
+//
+//                            @Override
+//                            public long expireAfterRead(Object o, Object o2, long currentTime, long currentDuration) {
+//                                return TimeUnit.HOURS.toNanos(1);
+//                            }
+//                        })
                         .initialCapacity(1)
                         .maximumSize(20)
                         .build()));
