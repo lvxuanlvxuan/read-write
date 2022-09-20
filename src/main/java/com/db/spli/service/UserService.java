@@ -31,4 +31,6 @@ public interface UserService {
 
     void invalidCache();
 
+    void testChangeDs();
+
 }

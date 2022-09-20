@@ -11,6 +11,7 @@ import org.springframework.cache.caffeine.CaffeineCache;
 import org.springframework.cache.support.SimpleCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import sun.misc.LRUCache;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +45,7 @@ public class CacheConfig {
                         .initialCapacity(50)
                         .maximumSize(300)
                         .build()));
+
         caches.add(new CaffeineCache(CacheConstant.ONE_HOUR,
                 Caffeine.newBuilder()
                         .expireAfterWrite(1, TimeUnit.HOURS)

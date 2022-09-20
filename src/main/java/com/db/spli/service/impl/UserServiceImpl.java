@@ -87,6 +87,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getCache(Integer key) {
+        org.springframework.cache.Cache.ValueWrapper valueWrapper = ONE_HOUR.get(key);
+        Object o1 = valueWrapper.get();
+
+        ///
         User o = (User) ONE_HOUR.getNativeCache().get(key, new Function<Object, Object>() {
             @Override
             public Object apply(Object o) {
@@ -102,9 +106,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public void putCache() {
         for (int i = 0; i < 30; i++) {
-            User user1=new User();
+            User user1 = new User();
             user1.setId(i);
-            user1.setUserName("xiaofeng"+1);
+            user1.setUserName("xiaofeng" + 1);
             ONE_HOUR.put(i, user1);
         }
     }
@@ -119,4 +123,16 @@ public class UserServiceImpl implements UserService {
     public void invalidCache() {
         ONE_HOUR.invalidate();
     }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void testChangeDs() {
+        User user = userMapper.selectByPrimaryKey(7);
+        user.setId(null);
+        user.setUserName("xiaowu");
+        userMapper.insertSelective(user);
+        int a = 1 / 0;
+    }
+
+
 }

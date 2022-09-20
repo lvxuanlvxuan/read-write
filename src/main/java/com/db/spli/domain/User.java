@@ -1,6 +1,8 @@
 package com.db.spli.domain;
 
 import java.time.LocalDateTime;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 /**
@@ -17,6 +19,7 @@ public class User {
     /**
      * 用户名称
      */
+    @JsonProperty("user_name")
     private String userName;
 
     /**

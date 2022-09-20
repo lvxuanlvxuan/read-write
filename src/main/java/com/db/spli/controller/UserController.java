@@ -73,4 +73,10 @@ public class UserController {
         userService.invalidCache();
         return ResponseEntity.ok().build();
     }
+
+    @PostMapping("/testChangeDs")
+    public ResponseEntity testChangeDs() {
+        userService.testChangeDs();
+        return ResponseEntity.ok().build();
+    }
 }
